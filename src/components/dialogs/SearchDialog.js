@@ -1,0 +1,203 @@
+import React, { useRef, useState } from 'react'
+import { SelectButton } from 'primereact/selectbutton';
+import { Divider } from 'primereact/divider'
+import { Card }  from 'primereact/card'
+import { Dialog } from 'primereact/dialog'
+import { InputNumber } from 'primereact/inputnumber'
+import { Checkbox } from 'primereact/checkbox';
+import { Dropdown } from 'primereact/dropdown'
+import { Button } from 'primereact/button'
+import { Messages } from 'primereact/messages'
+import { locateSlots, stopLocatingSlots} from "../../utilities/slotLocator";
+import { callPublicApis } from "../../utilities/http";
+
+export default function SearchDialog({ statesList, setDataSet, displaySearchDialog, setDisplaySearchDialog }) {
+    let searchView;
+    const messages = useRef(null);
+
+    const [selectedSearch, setSelectedSearch] = useState('searchByPin');
+    const [pin, setPin] = useState();
+    const [selectedState, setSelectedState] = useState('');
+    const [selectedDistrict, setSelectedDistrict] = useState('');
+    const [showFutureDates, setShowFutureDates] = useState(false);
+    const [autoRefresh, setAutoRefresh] = useState(false);
+    const [recurringSearchTriggered, setRecurringSearchTriggered] = useState(false);
+
+    const [districts, setDistricts] = useState([]);
+    const [disabledDistrictField, setDisabledDistrictField] = useState(true);
+
+    const searchOptions = [
+        {label: 'By Pin', value: 'searchByPin'},
+        {label: 'By District', value: 'searchByDistrict'}
+    ];
+
+    const  searchSlots = () => {
+        if (selectedSearch === 'searchByPin') {
+            searchSlotsByPin()
+        } else if (selectedSearch === 'searchByDistrict') {
+            searchSlotsByDistrict()
+        }
+    };
+
+    const stopSearch = () => {
+        stopLocatingSlots();
+        setRecurringSearchTriggered(false);
+    };
+
+    const searchSlotsByPin = () => {
+        const regex = /^[1-9][0-9]{5}$/;
+        if (!regex.test(pin)) {
+            messages.current.show({sticky: true, severity: 'error', summary: 'Invalid pincode'});
+            return;
+        }
+        setDisplaySearchDialog(false);
+        if (autoRefresh) {
+            setRecurringSearchTriggered(true);
+        }
+        locateSlots({selectedSearch, pin,  autoRefresh, showFutureDates, setDataSet})
+    };
+
+    const searchSlotsByDistrict = () => {
+        if (!selectedDistrict) {
+            messages.current.show({sticky: true, severity: 'error', summary: 'Please select district'});
+            return;
+        }
+        setDisplaySearchDialog(false);
+        if (autoRefresh) {
+            setRecurringSearchTriggered(true);
+        }
+        locateSlots({selectedSearch, selectedDistrict,  autoRefresh, showFutureDates, setDataSet})
+    };
+
+    const handleStateSelection = async (selectedStateId) => {
+        if (selectedStateId) {
+            setDisabledDistrictField(false)
+        } else {
+            setDisabledDistrictField(true)
+        }
+        setSelectedState(selectedStateId);
+        const response = await callPublicApis({
+            url: 'https://cdn-api.co-vin.in/api/v2/admin/location/districts' + `/${selectedStateId}`
+        });
+        const listOfDistricts = await response.json();
+        setDistricts(listOfDistricts.districts);
+    };
+
+    const setSelectedSearchValue = (selectedSearchValue) => {
+        if (selectedSearchValue === null) {
+            setSelectedSearch(selectedSearch)
+        } else {
+            setSelectedSearch(selectedSearchValue);
+            if (messages && messages.current) {
+                messages.current.clear();
+            }
+        }
+    };
+
+    if (selectedSearch === 'searchByPin') {
+        searchView = (
+            <React.Fragment>
+                <InputNumber
+                    value={pin}
+                    onChange={(event) => setPin(event.value)}
+                    className="p-col-12"
+                    placeholder="Enter Pincode"
+                    useGrouping={false}
+                    disabled={recurringSearchTriggered}
+                />
+                <div className="p-col-12"/>
+            </React.Fragment>
+        )
+    } else if (selectedSearch === 'searchByDistrict') {
+        searchView = (
+            <React.Fragment>
+                <Dropdown
+                    optionLabel="state_name"
+                    optionValue="state_id"
+                    value={selectedState}
+                    options={statesList}
+                    onChange={(e) => handleStateSelection(e.value)}
+                    placeholder="Select state"
+                    className="p-col-12"
+                    disabled={recurringSearchTriggered}
+                />
+                <Dropdown
+                    optionLabel="district_name"
+                    optionValue="district_id"
+                    value={selectedDistrict}
+                    options={districts}
+                    onChange={(e) => setSelectedDistrict(e.value)}
+                    className="p-col-12"
+                    placeholder="Select district"
+                    disabled={disabledDistrictField || recurringSearchTriggered}
+                />
+            </React.Fragment>
+        )
+    } else {
+        searchView = <div>Something went wrong. Please reload</div>
+    }
+
+    return (
+        <React.Fragment>
+            <Dialog header="Search Slots"
+                    visible={displaySearchDialog}
+                    onHide={() => setDisplaySearchDialog(false)}
+                    resizable={false}
+                    breakpoints={{'1200': '75vw', '640px': '100vw'}}
+                    style={{width: '30vw'}}>
+                <div className="p-grid">
+                    <div className="p-col p-d-flex p-jc-center">
+                        <SelectButton
+                            value={selectedSearch}
+                            options={searchOptions}
+                            onChange={(event) => setSelectedSearchValue(event.value)}
+                        />
+                    </div>
+                </div>
+                <Divider className="p-mt-1"/>
+                <div className="p-grid">
+                    {searchView}
+                    <div className="p-col-12">
+                        <Checkbox
+                            checked={showFutureDates}
+                            onChange={(event) => setShowFutureDates(event.checked)}
+                            inputId="futureDates"
+                            disabled={recurringSearchTriggered}
+                        />
+                        <label htmlFor="futureDates" className="p-checkbox-label  p-ml-2">Show for future dates</label>
+                    </div>
+                    <div className="p-col-12">
+                        <Checkbox
+                            checked={autoRefresh}
+                            onChange={(event) => setAutoRefresh(event.checked)}
+                            inputId="autoRefresh"
+                            disabled={recurringSearchTriggered}
+                        />
+                        <label htmlFor="autoRefresh" className="p-checkbox-label  p-ml-2">Auto refresh</label>
+                    </div>
+                    <div className="p-col-12">
+                        <Button
+                            label="Find slot"
+                            className="p-button p-col-12"
+                            onClick={searchSlots}
+                            disabled={recurringSearchTriggered}
+                        />
+                    </div>
+                    {recurringSearchTriggered && <div className="p-col-12">
+                        <Button
+                            label="Stop search"
+                            className="p-button p-col-12"
+                            onClick={stopSearch}
+                        />
+                    </div>}
+                    <Messages ref={messages} className="p-col-12 searchFieldErrorMessage"/>
+                </div>
+                <Divider className="p-mt-2"/>
+                <Card className="disclaimer">
+                    <p>Do not close the browser if <b>'Auto refresh'</b> is selected. Once any slot is available the details will be displayed and you will also get a notification sound.</p>
+                    <p>Disclaimer : While we have real-time data, slot availability on CoWin changes rapidly. If you see availability, please book on CoWin instantly before the slots are lost.</p>
+                </Card>
+            </Dialog>
+        </React.Fragment>
+    )
+}

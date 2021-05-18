@@ -1,0 +1,100 @@
+
+.datatable-slots-container .p-paginator .p-paginator-current {
+    margin-left: auto;
+}
+
+.datatable-slots-container .p-progressbar {
+    height: .5rem;
+    background-color: #D8DADC;
+}
+
+.datatable-slots-container .p-progressbar .p-progressbar-value {
+    background-color: #607D8B;
+}
+
+.datatable-slots-container .table-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.datatable-slots-container .p-datepicker {
+    min-width: 25rem;
+}
+
+.datatable-slots-container .p-datepicker td {
+    font-weight: 400;
+}
+
+.datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-header {
+    padding: 0 !important;
+    text-align: left;
+    font-size: 1.5rem;
+}
+
+.datatable-slots-container .p-datatable.p-datatable-slots .p-paginator {
+    padding: 1rem;
+}
+
+.datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-thead > tr > th {
+    padding: 0.2rem 0.5rem;
+    text-align: left;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+    padding: 0.2rem 0.5rem;
+}
+
+.datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tbody > tr > td {
+    cursor: auto;
+}
+
+.datatable-slots-container .p-datatable.p-datatable-slots .p-dropdown-label:not(.p-placeholder) {
+    text-transform: uppercase;
+}
+
+.datatable-slots-container .p-datatable-slots .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+}
+
+.nameColumn span {
+    font-size: 0.rem;
+}
+
+.datatable-slots-container > .card > div {
+    font-size: 0.875rem;
+    font-family: Calibri;
+}
+
+@media screen and (max-width: 960px) {
+    .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-thead > tr > th,
+    .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tfoot > tr > td {
+        display: none !important;
+    }
+
+    .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tbody > tr {
+        border-bottom: 1px solid black;
+    }
+
+    .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tbody > tr > td {
+        text-align: left;
+        display: block;
+        border: 0 none !important;
+        width: 100% !important;
+        float: left;
+        clear: left;
+        border: 0 none;
+    }
+
+    .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tbody > tr > td .p-column-title {
+        padding: .4rem;
+        min-width: 30%;
+        display: inline-block;
+        margin: -.4rem 1rem -.4rem -.4rem;
+        font-weight: bold;
+    }
+
+    .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tbody > tr > td .p-progressbar {
+        margin-top: .5rem;
+    }
+}
+                
