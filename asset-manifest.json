@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/getmeaslot/static/css/main.833636b2.chunk.css",
+    "main.js": "/getmeaslot/static/js/main.8bb2d69b.chunk.js",
+    "main.js.map": "/getmeaslot/static/js/main.8bb2d69b.chunk.js.map",
+    "runtime-main.js": "/getmeaslot/static/js/runtime-main.deeaa7b8.js",
+    "runtime-main.js.map": "/getmeaslot/static/js/runtime-main.deeaa7b8.js.map",
+    "static/css/2.13c7c188.chunk.css": "/getmeaslot/static/css/2.13c7c188.chunk.css",
+    "static/js/2.7f518203.chunk.js": "/getmeaslot/static/js/2.7f518203.chunk.js",
+    "static/js/2.7f518203.chunk.js.map": "/getmeaslot/static/js/2.7f518203.chunk.js.map",
+    "static/js/3.9dbb5f90.chunk.js": "/getmeaslot/static/js/3.9dbb5f90.chunk.js",
+    "static/js/3.9dbb5f90.chunk.js.map": "/getmeaslot/static/js/3.9dbb5f90.chunk.js.map",
+    "index.html": "/getmeaslot/index.html",
+    "static/css/2.13c7c188.chunk.css.map": "/getmeaslot/static/css/2.13c7c188.chunk.css.map",
+    "static/css/main.833636b2.chunk.css.map": "/getmeaslot/static/css/main.833636b2.chunk.css.map",
+    "static/js/2.7f518203.chunk.js.LICENSE.txt": "/getmeaslot/static/js/2.7f518203.chunk.js.LICENSE.txt",
+    "static/media/beep.40e5c7db.mp3": "/getmeaslot/static/media/beep.40e5c7db.mp3",
+    "static/media/primeicons.css": "/getmeaslot/static/media/primeicons.e61f3495.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.deeaa7b8.js",
+    "static/css/2.13c7c188.chunk.css",
+    "static/js/2.7f518203.chunk.js",
+    "static/css/main.833636b2.chunk.css",
+    "static/js/main.8bb2d69b.chunk.js"
+  ]
+}
