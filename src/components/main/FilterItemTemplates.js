@@ -1,4 +1,5 @@
 
+/*
 const dosesItemTemplate = (option) => {
     return (
         <div className="p-multiselect-representative-option">
@@ -31,4 +32,4 @@ const vaccineTypeItemTemplate = (option) => {
     );
 };
 
-export { dosesItemTemplate, ageLimitItemTemplate, feeTypeItemTemplate, vaccineTypeItemTemplate }
+export { dosesItemTemplate, ageLimitItemTemplate, feeTypeItemTemplate, vaccineTypeItemTemplate }*/

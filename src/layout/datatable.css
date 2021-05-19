@@ -62,7 +62,19 @@
     font-family: Calibri;
 }
 
+.datatable-slots-container .p-column-filter {
+    width: 100%;
+}
+
 @media screen and (max-width: 960px) {
+    .p-datatable-wrapper {
+        min-height: 200px;
+    }
+
+    .p-paginator-top {
+        border-width: 0 1px 1px 1px !important;
+    }
+
     .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-thead > tr > th,
     .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tfoot > tr > td {
         display: none !important;

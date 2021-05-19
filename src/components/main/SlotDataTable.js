@@ -7,11 +7,10 @@ import { Calendar } from 'primereact/calendar';
 import { MultiSelect } from 'primereact/multiselect';
 import { filterDate } from '../../utilities/dateConverter'
 import * as BodyTemplates from './GridBodyTemplates'
-import * as FilterTemplates from './FilterItemTemplates'
 import beepsound from '../../resources/beep.mp3'
 
 
-export default function SlotDataTable({ dataSet, dataTableDimensions }) {
+export default function SlotDataTable({ dataSet }) {
 
     const dt = useRef(null);
     const audioRef = useRef(null);
@@ -110,10 +109,10 @@ export default function SlotDataTable({ dataSet, dataTableDimensions }) {
         </div>
     );
 
-    const doseFilter = <MultiSelect value={selectedDose} options={doses} itemTemplate={FilterTemplates.dosesItemTemplate} onChange={onDosesChange} optionLabel="name" optionValue="value" placeholder="All" className="p-column-filter" />;
-    const feeTypeFilter = <MultiSelect value={selectedFeeType} options={feeType} itemTemplate={FilterTemplates.feeTypeItemTemplate} onChange={onFeeTypeChange} optionLabel="name" optionValue="value" placeholder="All" className="p-column-filter" />;
-    const ageLimitFilter = <MultiSelect value={selectedAgeLimit} options={ageLimit} itemTemplate={FilterTemplates.ageLimitItemTemplate} onChange={onAgeLimitChange} optionLabel="name" optionValue="value" placeholder="All" className="p-column-filter" />;
-    const vaccineTypeFilter = <MultiSelect value={selectedVaccineType} options={vaccineType} onChange={onVaccineTypeChange} optionLabel="name" optionValue="value" placeholder="All" style={{width: '100%'}} />;
+    const doseFilter = <MultiSelect value={selectedDose} options={doses} onChange={onDosesChange} optionLabel="name" optionValue="value" placeholder="All" className="p-column-filter" />;
+    const feeTypeFilter = <MultiSelect value={selectedFeeType} options={feeType} onChange={onFeeTypeChange} optionLabel="name" optionValue="value" placeholder="All" className="p-column-filter" />;
+    const ageLimitFilter = <MultiSelect value={selectedAgeLimit} options={ageLimit} onChange={onAgeLimitChange} optionLabel="name" optionValue="value" placeholder="All" className="p-column-filter" />;
+    const vaccineTypeFilter = <MultiSelect value={selectedVaccineType} options={vaccineType} onChange={onVaccineTypeChange} optionLabel="name" optionValue="value" placeholder="All" className="p-column-filter" />;
     const dateFilter = <Calendar value={selectedDate} onChange={onDateChange} dateFormat="dd-mm-yy" className="p-column-filter" placeholder="Date"/>;
 
     return (
@@ -124,7 +123,7 @@ export default function SlotDataTable({ dataSet, dataTableDimensions }) {
                            header={header}
                            className="p-datatable-slots p-datatable-gridlines p-datatable-striped p-datatable-lg"
                            globalFilter={globalFilter}
-                           emptyMessage={<h2 style={{color: 'red'}}>{dataSet.errorMessage}</h2>}
+                           emptyMessage={<h2 style={{color: 'red'}}>  {dataSet.errorMessage}</h2>}
                            paginatorPosition="top"
                            alwaysShowPaginator={false}>
                     <Column style={{width : '25%'}} field="name" header="Name" body={BodyTemplates.nameBodyTemplate} sortable/>

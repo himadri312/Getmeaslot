@@ -8,7 +8,6 @@ import { Toast } from 'primereact/toast'
 export default function Main() {
     const toastRef = useRef(null);
     const [states, setStates] = useState([]);
-    const [dataTableDimensions, setDataTableDimensions] = useState(getDataTableDimension());
     const [dataSet, setDataSet] = useState({
         errorMessage: 'Start searching to view slots availability',
         timeStamp: '',
@@ -19,15 +18,6 @@ export default function Main() {
         toastRef.current.show({severity: 'info', summary: 'Checked cowin portal at: ', detail: dataset.timeStamp, life: 3000});
         setDataSet(dataset)
     };
-
-    function getDataTableDimension() {
-        const { innerHeight: height } = window;
-        return (height - 100) + "px";
-    }
-
-    function handleResize() {
-        setDataTableDimensions(getDataTableDimension());
-    }
 
     useEffect( () => {
         callPublicApis({
@@ -42,7 +32,7 @@ export default function Main() {
     return (
         <React.Fragment>
             <div className="p-grid full-height">
-                <div className="p-col-12 full-height">
+                <div className="p-col-12">
                     <div className="p-grid">
                         <Toast ref={toastRef} position="bottom-right"/>
                         <div className="p-col-12 p-mb-0">
@@ -50,7 +40,7 @@ export default function Main() {
                         </div>
                         <div className="p-col-12 bottom-panel">
                             <Card className="p-col-12">
-                                <SlotTable dataSet={dataSet} dataTableDimensions={dataTableDimensions}></SlotTable>
+                                <SlotTable dataSet={dataSet}></SlotTable>
                             </Card>
                         </div>
                     </div>

@@ -4,13 +4,11 @@ import { Badge } from 'primereact/badge'
 const nameBodyTemplate = (rowData) => {
     return (
         <React.Fragment>
-            <h3 className="nameColumn p-m-0 p-p-0">
-                {rowData.name}, {rowData.district_name}</h3>
-                <br/>
-                <h5 className="p-m-0 p-p-0" style={{color: 'blue'}}>
-                    <i className="pi pi-map-marker"/>
-                    <span className="p-ml-1">{rowData.address}, {rowData.district_name}</span>
-                </h5>
+            <h3 className="nameColumn p-m-0 p-p-0">{rowData.name}, {rowData.district_name}</h3>
+            <h5 className="p-m-0 p-p-0" style={{color: 'blue'}}>
+                <i className="pi pi-map-marker"/>
+                <span className="p-ml-1">{rowData.address}, {rowData.district_name}</span>
+            </h5>
         </React.Fragment>
     )
 };
