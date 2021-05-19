@@ -1,15 +1,16 @@
 import React, { useRef, useState } from 'react'
-import { SelectButton } from 'primereact/selectbutton';
+import { SelectButton } from 'primereact/selectbutton'
 import { Divider } from 'primereact/divider'
 import { Card }  from 'primereact/card'
 import { Dialog } from 'primereact/dialog'
 import { InputNumber } from 'primereact/inputnumber'
-import { Checkbox } from 'primereact/checkbox';
+import { Checkbox } from 'primereact/checkbox'
 import { Dropdown } from 'primereact/dropdown'
 import { Button } from 'primereact/button'
 import { Messages } from 'primereact/messages'
-import { locateSlots, stopLocatingSlots} from "../../utilities/slotLocator";
-import { callPublicApis } from "../../utilities/http";
+import { Calendar } from 'primereact/calendar'
+import { locateSlots, stopLocatingSlots} from "../../utilities/slotLocator"
+import { callPublicApis } from "../../utilities/http"
 
 export default function SearchDialog({ statesList, setDataSet, displaySearchDialog, setDisplaySearchDialog }) {
     let searchView;
@@ -22,9 +23,12 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
     const [showFutureDates, setShowFutureDates] = useState(false);
     const [autoRefresh, setAutoRefresh] = useState(false);
     const [recurringSearchTriggered, setRecurringSearchTriggered] = useState(false);
-
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [districts, setDistricts] = useState([]);
     const [disabledDistrictField, setDisabledDistrictField] = useState(true);
+
+    let maxDate = new Date();
+    maxDate.setDate(maxDate.getDate() + 6);
 
     const searchOptions = [
         {label: 'By Pin', value: 'searchByPin'},
@@ -54,7 +58,7 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
         if (autoRefresh) {
             setRecurringSearchTriggered(true);
         }
-        locateSlots({selectedSearch, pin,  autoRefresh, showFutureDates, setDataSet})
+        locateSlots({selectedSearch, pin, selectedDate, autoRefresh, showFutureDates, setDataSet})
     };
 
     const searchSlotsByDistrict = () => {
@@ -66,21 +70,31 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
         if (autoRefresh) {
             setRecurringSearchTriggered(true);
         }
-        locateSlots({selectedSearch, selectedDistrict,  autoRefresh, showFutureDates, setDataSet})
+        locateSlots({selectedSearch, selectedDistrict, selectedDate, autoRefresh, showFutureDates, setDataSet})
     };
 
-    const handleStateSelection = async (selectedStateId) => {
+    const handleStateSelection = (selectedStateId) => {
         if (selectedStateId) {
             setDisabledDistrictField(false)
         } else {
             setDisabledDistrictField(true)
         }
         setSelectedState(selectedStateId);
-        const response = await callPublicApis({
+        callPublicApis({
             url: 'https://cdn-api.co-vin.in/api/v2/admin/location/districts' + `/${selectedStateId}`
-        });
-        const listOfDistricts = await response.json();
-        setDistricts(listOfDistricts.districts);
+        }).then(response => response.json())
+            .then(listOfDistricts => {
+                if (messages && messages.current) {
+                    messages.current.clear();
+                }
+                setDistricts(listOfDistricts.districts);
+            })
+            .catch(error => {
+                if (messages && messages.current) {
+                    messages.current.show({sticky: true, severity: 'error', summary: 'Unable to fetch districts. Try again'});
+                    setDistricts([]);
+                }
+            })
     };
 
     const setSelectedSearchValue = (selectedSearchValue) => {
@@ -143,7 +157,7 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
                     visible={displaySearchDialog}
                     onHide={() => setDisplaySearchDialog(false)}
                     resizable={false}
-                    breakpoints={{'1200': '75vw', '640px': '100vw'}}
+                    breakpoints={{'1024px': '75vw', '640px': '100vw'}}
                     style={{width: '30vw'}}>
                 <div className="p-grid">
                     <div className="p-col p-d-flex p-jc-center">
@@ -157,6 +171,15 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
                 <Divider className="p-mt-1"/>
                 <div className="p-grid">
                     {searchView}
+                    <div className="p-col-12">
+                        <Calendar id="basic"
+                                  dateFormat="dd-mm-yy"
+                                  value={selectedDate}
+                                  minDate={new Date()}
+                                  maxDate={maxDate}
+                                  onChange={(e) => setSelectedDate(e.value)}
+                                  className="p-col-12 p-p-0"/>
+                    </div>
                     <div className="p-col-12">
                         <Checkbox
                             checked={showFutureDates}

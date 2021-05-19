@@ -24,7 +24,7 @@ export function filterDate(value, filter) {
     return value === formatDate(filter);
 }
 
-function formatDate(date) {
+export function formatDate(date) {
     let month = date.getMonth() + 1;
     let day = date.getDate();
 

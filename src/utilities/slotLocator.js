@@ -1,21 +1,22 @@
-import { convertDateString } from './dateConverter'
+import { formatDate } from './dateConverter'
 import { processSessions, processError } from './dataProcessor'
 
 let interval;
 
 export const locateSlots = (config) => {
     let url = '';
+    const date = formatDate(config.selectedDate)
     if (config.selectedSearch === 'searchByPin') {
         if (config.showFutureDates) {
-            url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=' + config.pin + '&date=' + convertDateString(new Date())
+            url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=' + config.pin + '&date=' + date
         } else {
-            url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=' + config.pin + '&date=' + convertDateString(new Date())
+            url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=' + config.pin + '&date=' + date
         }
     } else if (config.selectedSearch === 'searchByDistrict') {
         if (config.showFutureDates) {
-            url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=' + config.selectedDistrict + '&date=' + convertDateString(new Date())
+            url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=' + config.selectedDistrict + '&date=' + date
         } else {
-            url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=' + config.selectedDistrict + '&date=' + convertDateString(new Date())
+            url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=' + config.selectedDistrict + '&date=' + date
         }
     }
 

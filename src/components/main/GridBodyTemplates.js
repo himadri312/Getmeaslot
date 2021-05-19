@@ -5,11 +5,12 @@ const nameBodyTemplate = (rowData) => {
     return (
         <React.Fragment>
             <h3 className="nameColumn p-m-0 p-p-0">
-                {rowData.name}
+                {rowData.name}, {rowData.district_name}</h3>
                 <br/>
-                <i className="pi pi-map-marker p-mt-1"></i>
-                <span className="p-ml-1">{rowData.address}, {rowData.district_name}</span>
-            </h3>
+                <h5 className="p-m-0 p-p-0" style={{color: 'blue'}}>
+                    <i className="pi pi-map-marker"/>
+                    <span className="p-ml-1">{rowData.address}, {rowData.district_name}</span>
+                </h5>
         </React.Fragment>
     )
 };
@@ -28,7 +29,7 @@ const doseBodyTemplate = (rowData) => {
         <React.Fragment>
             <span className="p-column-title">Dose (Slots)</span>
             <span className="image-text">{rowData.dose}</span>
-            <Badge value={rowData.doseCapacity} severity="success" className="p-ml-2"></Badge>
+            <Badge value={rowData.doseCapacity} severity="success" className="p-ml-2"/>
         </React.Fragment>
     );
 };
@@ -36,9 +37,9 @@ const doseBodyTemplate = (rowData) => {
 const feeTypeBodyTemplate = (rowData) => {
     return (
         <React.Fragment>
-            <span className="p-column-title">Fee</span>
+            <span className="p-column-title">Fee (Price)</span>
             <span className="image-text">{rowData.fee_type}</span>
-            {rowData.fee_type === 'Paid' && <Badge value={rowData.fee} severity="danger" className="p-ml-2"></Badge>}
+            {rowData.fee_type === 'Paid' && <Badge value={rowData.fee} severity="danger" className="p-ml-2"/>}
         </React.Fragment>
     );
 };

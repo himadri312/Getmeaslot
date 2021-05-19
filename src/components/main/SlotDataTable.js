@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
@@ -8,10 +8,13 @@ import { MultiSelect } from 'primereact/multiselect';
 import { filterDate } from '../../utilities/dateConverter'
 import * as BodyTemplates from './GridBodyTemplates'
 import * as FilterTemplates from './FilterItemTemplates'
+import beepsound from '../../resources/beep.mp3'
 
-export default function SlotDataTable({ dataSet }) {
+
+export default function SlotDataTable({ dataSet, dataTableDimensions }) {
 
     const dt = useRef(null);
+    const audioRef = useRef(null);
 
     const [globalFilter, setGlobalFilter] = useState('');
     const [selectedDose, setSelectedDose] = useState(null);
@@ -19,7 +22,24 @@ export default function SlotDataTable({ dataSet }) {
     const [selectedAgeLimit, setSelectedAgeLimit] = useState(null);
     const [selectedVaccineType, setSelectedVaccineType] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [enableVolume, setEnableVolume] = useState(true);
+    const [isPlayState, setIsPlayState] = useState("play");
+
+    useEffect(() => {
+        if (sessionStorage.getItem('configuration')) {
+            const { isPlayState } = JSON.parse(sessionStorage.getItem('configuration'));
+            setIsPlayState(isPlayState ? isPlayState : "play")
+        }
+    }, []);
+
+    useEffect(() => {
+        sessionStorage.setItem('configuration', JSON.stringify({ isPlayState }))
+    }, [isPlayState]);
+
+    useEffect(() => {
+        if (dataSet.slotList.length && isPlayState === "play") {
+            audioRef.current.play()
+        }
+    }, [dataSet]);
 
     const doses = [
         {name: "Dose1", value: 'Dose1'},
@@ -78,8 +98,11 @@ export default function SlotDataTable({ dataSet }) {
 
     const header = (
         <div className="table-header p-grid p-m-0">
-            <Button icon="pi pi-volume-up" className={`p-d-none p-mr-2 p-d-md-${enableVolume ? 'inline':'none'}`} onClick={() => setEnableVolume(false)}/>
-            <Button icon="pi pi-volume-off" className={`p-d-none p-mr-2 p-d-md-${!enableVolume ? 'inline':'none'}`} onClick={() => setEnableVolume(true)}/>
+            <Button
+                icon={`pi ${isPlayState === "play" ? 'pi-volume-up' : 'pi-volume-off'}`}
+                className="p-d-none p-mr-2 p-d-md-inline"
+                onClick={() => setIsPlayState(isPlayState === "play" ? "pause" : "play")}
+            />
             <div className="p-inputgroup p-col-12 p-md-5 p-lg-3 p-p-0">
                 <InputText type="search" value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)} placeholder="Global Search" />
                 <Button icon="pi pi-filter-slash" onClick={reset}/>
@@ -99,9 +122,9 @@ export default function SlotDataTable({ dataSet }) {
                 <DataTable ref={dt} value={dataSet.slotList}
                            paginator rows={10}
                            header={header}
-                           className="p-datatable-slots p-datatable-gridlines p-datatable-striped"
+                           className="p-datatable-slots p-datatable-gridlines p-datatable-striped p-datatable-lg"
                            globalFilter={globalFilter}
-                           emptyMessage={dataSet.errorMessage}
+                           emptyMessage={<h2 style={{color: 'red'}}>{dataSet.errorMessage}</h2>}
                            paginatorPosition="top"
                            alwaysShowPaginator={false}>
                     <Column style={{width : '25%'}} field="name" header="Name" body={BodyTemplates.nameBodyTemplate} sortable/>
@@ -113,6 +136,9 @@ export default function SlotDataTable({ dataSet }) {
                     <Column field="vaccine" header="Vaccine" body={BodyTemplates.vaccineTypeBodyTemplate} filter filterElement={vaccineTypeFilter} />
                 </DataTable>
             </div>
+            <audio ref={audioRef} >
+                <source src={beepsound}/>
+            </audio>
         </div>
     );
 }

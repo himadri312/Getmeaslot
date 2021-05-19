@@ -3,36 +3,41 @@ import AppMenuBar from '../header/Menubar'
 import { Card } from 'primereact/card'
 import { callPublicApis } from '../../utilities/http'
 import SlotTable from './SlotDataTable'
-import beepsound from '../../resources/beep.mp3'
 import { Toast } from 'primereact/toast'
 
 export default function Main() {
-    const audioRef = useRef(null)
-    const toastRef = useRef(null)
-    const [states, setStates] = useState([])
+    const toastRef = useRef(null);
+    const [states, setStates] = useState([]);
+    const [dataTableDimensions, setDataTableDimensions] = useState(getDataTableDimension());
     const [dataSet, setDataSet] = useState({
         errorMessage: 'Start searching to view slots availability',
         timeStamp: '',
         slotList: []
-    })
+    });
 
     const setData = (dataset) => {
-        if (dataset.slotList.length) {
-            audioRef.current.play()
-        }
         toastRef.current.show({severity: 'info', summary: 'Checked cowin portal at: ', detail: dataset.timeStamp, life: 3000});
         setDataSet(dataset)
+    };
+
+    function getDataTableDimension() {
+        const { innerHeight: height } = window;
+        return (height - 100) + "px";
+    }
+
+    function handleResize() {
+        setDataTableDimensions(getDataTableDimension());
     }
 
     useEffect( () => {
-        (async () => {
-            const response = await callPublicApis({
-                url: 'https://cdn-api.co-vin.in/api/v2/admin/location/states'
-            })
-            const listOfStates = await response.json();
-            setStates(listOfStates.states);
-        })()
-    }, [])
+        callPublicApis({
+            url: 'https://cdn-api.co-vin.in/api/v2/admin/location/states'
+        }).then(response => response.json())
+            .then(listOfStates => setStates(listOfStates.states))
+            .catch(error => {
+                toastRef.current.show({severity: 'error', summary: 'Unable to fetch states from Cowin portal', detail: 'Please reload or continue search using pincode.', sticky: true});
+            });
+    }, []);
 
     return (
         <React.Fragment>
@@ -45,15 +50,12 @@ export default function Main() {
                         </div>
                         <div className="p-col-12 bottom-panel">
                             <Card className="p-col-12">
-                                <SlotTable dataSet={dataSet}></SlotTable>
+                                <SlotTable dataSet={dataSet} dataTableDimensions={dataTableDimensions}></SlotTable>
                             </Card>
                         </div>
                     </div>
                 </div>
             </div>
-            <audio ref={audioRef} >
-                <source src={beepsound}/>
-            </audio>
         </React.Fragment>
     )
 }

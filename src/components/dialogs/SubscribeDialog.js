@@ -5,7 +5,6 @@ import { Button } from 'primereact/button'
 
 export default function Subscribe({ displaySubscribeDialog, setDisplaySubscribeDialog }) {
 
-
     const [subscriberMailId, setSubscriberMailId] = useState('');
     const [subscribedPincodes, setSubscribedPincodes] = useState('');
     const [isValidPincode, setIsValidPincode] = useState(false)

@@ -10,12 +10,10 @@ export const callPublicApis = async (config) => {
         }
     }
 
-    const response = fetch(queryURL + queryString, {
+    return fetch(queryURL + queryString, {
         method: 'GET',
             headers: {
                 Accept: 'application/json'
             }
     })
-
-    return response;
 }

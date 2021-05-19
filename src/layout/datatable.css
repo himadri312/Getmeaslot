@@ -46,6 +46,7 @@
 
 .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tbody > tr > td {
     cursor: auto;
+    padding: 0.4rem 1.25rem;
 }
 
 .datatable-slots-container .p-datatable.p-datatable-slots .p-dropdown-label:not(.p-placeholder) {
@@ -54,10 +55,6 @@
 
 .datatable-slots-container .p-datatable-slots .p-datatable-tbody > tr > td .p-column-title {
     display: none;
-}
-
-.nameColumn span {
-    font-size: 0.rem;
 }
 
 .datatable-slots-container > .card > div {
@@ -82,7 +79,7 @@
         width: 100% !important;
         float: left;
         clear: left;
-        border: 0 none;
+        padding: 0.2rem;
     }
 
     .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tbody > tr > td .p-column-title {
@@ -95,6 +92,19 @@
 
     .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tbody > tr > td .p-progressbar {
         margin-top: .5rem;
+    }
+
+    .appMenuBar .p-button {
+        margin-bottom: 0.5rem;
+    }
+
+    .appMenuBar .p-button:not(.p-button-icon-only) {
+        display: flex;
+        width: 100%;
+    }
+
+    .appMenuBar .p-buttonset .p-button {
+        margin-bottom: 0;
     }
 }
                 

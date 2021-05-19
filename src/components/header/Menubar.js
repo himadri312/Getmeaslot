@@ -50,7 +50,7 @@ export default function AppMenuBar({ states, setDataSet }) {
 
     return (
         <React.Fragment>
-            <div className="card">
+            <div className="card appMenuBar">
                 <Menubar model={items}/>
             </div>
         </React.Fragment>
