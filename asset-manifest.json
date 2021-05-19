@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/getmeaslot/static/css/main.110c3f30.chunk.css",
-    "main.js": "/getmeaslot/static/js/main.1f9fa157.chunk.js",
-    "main.js.map": "/getmeaslot/static/js/main.1f9fa157.chunk.js.map",
+    "main.css": "/getmeaslot/static/css/main.47e45f67.chunk.css",
+    "main.js": "/getmeaslot/static/js/main.26185074.chunk.js",
+    "main.js.map": "/getmeaslot/static/js/main.26185074.chunk.js.map",
     "runtime-main.js": "/getmeaslot/static/js/runtime-main.deeaa7b8.js",
     "runtime-main.js.map": "/getmeaslot/static/js/runtime-main.deeaa7b8.js.map",
     "static/css/2.cd0be256.chunk.css": "/getmeaslot/static/css/2.cd0be256.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.9dbb5f90.chunk.js.map": "/getmeaslot/static/js/3.9dbb5f90.chunk.js.map",
     "index.html": "/getmeaslot/index.html",
     "static/css/2.cd0be256.chunk.css.map": "/getmeaslot/static/css/2.cd0be256.chunk.css.map",
-    "static/css/main.110c3f30.chunk.css.map": "/getmeaslot/static/css/main.110c3f30.chunk.css.map",
+    "static/css/main.47e45f67.chunk.css.map": "/getmeaslot/static/css/main.47e45f67.chunk.css.map",
     "static/js/2.eaf7abd9.chunk.js.LICENSE.txt": "/getmeaslot/static/js/2.eaf7abd9.chunk.js.LICENSE.txt",
     "static/media/beep.40e5c7db.mp3": "/getmeaslot/static/media/beep.40e5c7db.mp3",
     "static/media/primeicons.css": "/getmeaslot/static/media/primeicons.e61f3495.woff"
@@ -21,7 +21,7 @@
     "static/js/runtime-main.deeaa7b8.js",
     "static/css/2.cd0be256.chunk.css",
     "static/js/2.eaf7abd9.chunk.js",
-    "static/css/main.110c3f30.chunk.css",
-    "static/js/main.1f9fa157.chunk.js"
+    "static/css/main.47e45f67.chunk.css",
+    "static/js/main.26185074.chunk.js"
   ]
 }
