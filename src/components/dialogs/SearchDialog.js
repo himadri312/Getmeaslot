@@ -224,7 +224,7 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
                 <Divider className="p-mt-2"/>
                 <Card className="disclaimer">
                     <p>Do not close the browser if <b>'Auto refresh'</b> is selected. Once any slot is available the details will be displayed and you will also get a notification sound.</p>
-                    <p>Disclaimer : While we have real-time data, slot availability on CoWin changes rapidly. If you see availability, please book on CoWin instantly before the slots are lost.</p>
+                    <p>Disclaimer : Due to high demand, slot availability on CoWin changes rapidly. Please book the slots on CoWin as soon as they are available.</p>
                 </Card>
             </Dialog>
         </React.Fragment>

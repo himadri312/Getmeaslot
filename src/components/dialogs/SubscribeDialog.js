@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
+import { Divider } from 'primereact/divider'
+import { Card }  from 'primereact/card'
 
 export default function Subscribe({ displaySubscribeDialog, setDisplaySubscribeDialog }) {
 
@@ -13,7 +15,8 @@ export default function Subscribe({ displaySubscribeDialog, setDisplaySubscribeD
         setSubscribedPincodes(subscribedPincodes);
         const regex = /^[1-9][0-9]{5}$/;
         setIsValidPincode(subscribedPincodes.split(',').every((pincode) => {
-            return regex.test(pincode)
+            regex.test(pincode)
+            return false;
         }));
     }
 
@@ -37,7 +40,7 @@ export default function Subscribe({ displaySubscribeDialog, setDisplaySubscribeD
                     value={subscribedPincodes}
                     onChange={(event) => validatePincodes(event.target.value)}
                     className="p-col-12"
-                    placeholder="Enter Pincode(use , from multiple)"
+                    placeholder="Enter Pincode(use , for multiple)"
                 />
                 <InputText
                     value={subscriberMailId}
@@ -55,6 +58,16 @@ export default function Subscribe({ displaySubscribeDialog, setDisplaySubscribeD
                         disabled={!isValidPincode}
                     />
                 </div>
+                <Divider className="p-mt-2"/>
+                <Card className="disclaimer">
+                    <p className="underDevelopment">
+                        <h1>Our apologies!</h1>
+                        <h4>This functionality is still under development</h4>
+                    </p>
+                    <p>Users can subscribe to multiple pincodes</p>
+                    <p>User will get an email notification as soon as slots for a subscribed pincode is available</p>
+                    <p>Disclaimer : Due to high demand, slot availability on CoWin changes rapidly. Please book the slots on CoWin as soon as they are available.</p>
+                </Card>
             </Dialog>
         </React.Fragment>
     )

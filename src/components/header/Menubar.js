@@ -36,7 +36,7 @@ export default function AppMenuBar({ states, setDataSet }) {
                 )
             }
         },
-        {
+        /*{
             template: () => {
                 return (<Button label="About Us" icon="pi pi-users" className="p-button-raised p-mr-2"/>);
             }
@@ -45,7 +45,7 @@ export default function AppMenuBar({ states, setDataSet }) {
             template: () => {
                 return (<Button label="Donate" icon="pi pi-bell" className="p-button-raised p-mr-2"/>);
             }
-        }
+        }*/
     ]
 
     return (
