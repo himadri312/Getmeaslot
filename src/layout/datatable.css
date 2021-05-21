@@ -96,7 +96,7 @@
 
     .datatable-slots-container .p-datatable.p-datatable-slots .p-datatable-tbody > tr > td .p-column-title {
         padding: .4rem;
-        min-width: 30%;
+        min-width: 40%;
         display: inline-block;
         margin: -.4rem 1rem -.4rem -.4rem;
         font-weight: bold;

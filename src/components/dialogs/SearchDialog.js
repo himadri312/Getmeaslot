@@ -28,7 +28,7 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
     const [disabledDistrictField, setDisabledDistrictField] = useState(true);
 
     let maxDate = new Date();
-    maxDate.setDate(maxDate.getDate() + 6);
+    maxDate.setDate(maxDate.getDate() + 7);
 
     const searchOptions = [
         {label: 'By Pin', value: 'searchByPin'},
@@ -51,7 +51,9 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
     const searchSlotsByPin = () => {
         const regex = /^[1-9][0-9]{5}$/;
         if (!regex.test(pin)) {
-            messages.current.show({sticky: true, severity: 'error', summary: 'Invalid pincode'});
+            if (messages && messages.current) {
+                messages.current.show({sticky: true, severity: 'error', summary: 'Invalid pincode'});
+            }
             return;
         }
         setDisplaySearchDialog(false);
@@ -63,7 +65,9 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
 
     const searchSlotsByDistrict = () => {
         if (!selectedDistrict) {
-            messages.current.show({sticky: true, severity: 'error', summary: 'Please select district'});
+            if (messages && messages.current) {
+                messages.current.show({sticky: true, severity: 'error', summary: 'Please select district'});
+            }
             return;
         }
         setDisplaySearchDialog(false);
@@ -178,7 +182,9 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
                                   minDate={new Date()}
                                   maxDate={maxDate}
                                   onChange={(e) => setSelectedDate(e.value)}
-                                  className="p-col-12 p-p-0"/>
+                                  className="p-col-12 p-p-0"
+                                  disabled={recurringSearchTriggered}
+                        />
                     </div>
                     <div className="p-col-12">
                         <Checkbox

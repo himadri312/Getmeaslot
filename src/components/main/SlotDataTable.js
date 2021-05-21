@@ -35,7 +35,7 @@ export default function SlotDataTable({ dataSet }) {
     }, [isPlayState]);
 
     useEffect(() => {
-        if (dataSet.slotList.length && isPlayState === "play") {
+        if (audioRef && audioRef.current && dataSet.slotList.length && isPlayState === "play") {
             audioRef.current.play()
         }
     }, [dataSet]);
@@ -129,8 +129,8 @@ export default function SlotDataTable({ dataSet }) {
                     <Column style={{width : '25%'}} field="name" header="Name" body={BodyTemplates.nameBodyTemplate} sortable/>
                     <Column style={{width : '10%'}} field="pincode" header="Pincode" body={BodyTemplates.pincodeBodyTemplate} sortable/>
                     <Column field="date" header="Date" body={BodyTemplates.dateBodyTemplate} filter filterElement={dateFilter} filterFunction={filterDate} />
-                    <Column field="dose" header="Dose (Slots)" body={BodyTemplates.doseBodyTemplate} filter filterElement={doseFilter} />
-                    <Column field="fee_type" header="Fee" body={BodyTemplates.feeTypeBodyTemplate} filter filterElement={feeTypeFilter} />
+                    <Column field="dose" header="Dose (No of Slots)" body={BodyTemplates.doseBodyTemplate} filter filterElement={doseFilter} />
+                    <Column field="fee_type" header="Fee (Price)" body={BodyTemplates.feeTypeBodyTemplate} filter filterElement={feeTypeFilter} />
                     <Column field="age" header="Age" body={BodyTemplates.ageLimitBodyTemplate} filter filterElement={ageLimitFilter} />
                     <Column field="vaccine" header="Vaccine" body={BodyTemplates.vaccineTypeBodyTemplate} filter filterElement={vaccineTypeFilter} />
                 </DataTable>

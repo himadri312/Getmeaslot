@@ -1,5 +1,5 @@
 import { formatDate } from './dateConverter'
-import { processSessions, processError } from './dataProcessor'
+import { processSessions, processError, processCenters } from './dataProcessor'
 
 let interval;
 
@@ -45,13 +45,14 @@ export const stopLocatingSlots = () => {
 
 const triggerSlotsFetchForFutureDates = ({url, setDataSet}) => {
     if (url) {
+        const requestTimeStamp = new Date().toLocaleString();
         fetch(url, {
             headers: {
                 Accept: 'application/json'
             }
         }).then(response => response.json())
-            .then(slots => setDataSet({slots}))
-            .catch(error => setDataSet({error}))
+            .then(slots => setDataSet(processCenters(slots.centers, requestTimeStamp)))
+            .catch(error => setDataSet(processError(error, requestTimeStamp)))
     }
 };
 

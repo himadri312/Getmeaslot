@@ -15,7 +15,9 @@ export default function Main() {
     });
 
     const setData = (dataset) => {
-        toastRef.current.show({severity: 'info', summary: 'Checked cowin portal at: ', detail: dataset.timeStamp, life: 3000});
+        if (toastRef && toastRef.current) {
+            toastRef.current.show({severity: 'info', summary: 'Checked cowin portal at: ', detail: dataset.timeStamp, life: 3000});
+        }
         setDataSet(dataset)
     };
 
@@ -25,7 +27,14 @@ export default function Main() {
         }).then(response => response.json())
             .then(listOfStates => setStates(listOfStates.states))
             .catch(error => {
-                toastRef.current.show({severity: 'error', summary: 'Unable to fetch states from Cowin portal', detail: 'Please reload or continue search using pincode.', sticky: true});
+                if (toastRef && toastRef.current) {
+                    toastRef.current.show({
+                        severity: 'error',
+                        summary: 'Unable to fetch states from Cowin portal',
+                        detail: 'Please reload or continue search using pincode.',
+                        sticky: true
+                    });
+                }
             });
     }, []);
 
