@@ -9,8 +9,9 @@ import { Dropdown } from 'primereact/dropdown'
 import { Button } from 'primereact/button'
 import { Messages } from 'primereact/messages'
 import { Calendar } from 'primereact/calendar'
-import { locateSlots, stopLocatingSlots} from "../../utilities/slotLocator"
+import { locateSlots, stopLocatingSlots } from "../../utilities/slotLocator"
 import { callPublicApis } from "../../utilities/http"
+import { formatDate } from '../../utilities/dateConverter'
 
 export default function SearchDialog({ statesList, setDataSet, displaySearchDialog, setDisplaySearchDialog }) {
     let searchView;
@@ -193,7 +194,7 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
                             inputId="futureDates"
                             disabled={recurringSearchTriggered}
                         />
-                        <label htmlFor="futureDates" className="p-checkbox-label  p-ml-2">Show for future dates</label>
+                        <label htmlFor="futureDates" className="p-checkbox-label  p-ml-2">Future dates (Slots availability till {formatDate(maxDate)})</label>
                     </div>
                     <div className="p-col-12">
                         <Checkbox
@@ -202,7 +203,7 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
                             inputId="autoRefresh"
                             disabled={recurringSearchTriggered}
                         />
-                        <label htmlFor="autoRefresh" className="p-checkbox-label  p-ml-2">Auto refresh</label>
+                        <label htmlFor="autoRefresh" className="p-checkbox-label  p-ml-2">Auto refresh (Trigger auto search at 5s interval)</label>
                     </div>
                     <div className="p-col-12">
                         <Button

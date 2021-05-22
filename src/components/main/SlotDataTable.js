@@ -97,12 +97,12 @@ export default function SlotDataTable({ dataSet }) {
 
     const header = (
         <div className="table-header p-grid p-m-0">
-            <Button
-                icon={`pi ${isPlayState === "play" ? 'pi-volume-up' : 'pi-volume-off'}`}
-                className="p-d-none p-mr-2 p-d-md-inline"
-                onClick={() => setIsPlayState(isPlayState === "play" ? "pause" : "play")}
-            />
-            <div className="p-inputgroup p-col-12 p-md-5 p-lg-3 p-p-0">
+            <div className={`p-inputgroup p-col-11 p-md-5 p-lg-3 p-p-0 p-d-lg-flex ${dataSet.slotList && dataSet.slotList.length ? 'p-d-flex' : 'p-d-none'}`}>
+                <Button
+                    icon={`pi ${isPlayState === "play" ? 'pi-volume-up' : 'pi-volume-off'}`}
+                    className="p-mr-2"
+                    onClick={() => setIsPlayState(isPlayState === "play" ? "pause" : "play")}
+                />
                 <InputText type="search" value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)} placeholder="Global Search" />
                 <Button icon="pi pi-filter-slash" onClick={reset}/>
             </div>
@@ -133,6 +133,7 @@ export default function SlotDataTable({ dataSet }) {
                     <Column field="fee_type" header="Fee (Price)" body={BodyTemplates.feeTypeBodyTemplate} filter filterElement={feeTypeFilter} />
                     <Column field="age" header="Age" body={BodyTemplates.ageLimitBodyTemplate} filter filterElement={ageLimitFilter} />
                     <Column field="vaccine" header="Vaccine" body={BodyTemplates.vaccineTypeBodyTemplate} filter filterElement={vaccineTypeFilter} />
+                    <Column field="null" body={BodyTemplates.bookingBodyTemplate}/>
                 </DataTable>
             </div>
             <audio ref={audioRef} >
