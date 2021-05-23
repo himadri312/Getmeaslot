@@ -4,6 +4,7 @@ import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import { Divider } from 'primereact/divider'
 import { Card }  from 'primereact/card'
+import ReactGA from 'react-ga'
 
 export default function Subscribe({ displaySubscribeDialog, setDisplaySubscribeDialog }) {
 
@@ -21,6 +22,11 @@ export default function Subscribe({ displaySubscribeDialog, setDisplaySubscribeD
     }
 
     const subscribe = () => {
+        ReactGA.event({
+            category: 'SUBSCRIBE_DIALOG',
+            action: 'Subscribed to notifications',
+            label: 'SUBSCRIBE_BUTTON_PRESS'
+        })
         subscribedPincodes.split(',').forEach(pincode => {
             if (!pincode.startsWith(0)) {
                 console.log(pincode)

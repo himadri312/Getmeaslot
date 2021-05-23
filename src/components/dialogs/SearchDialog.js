@@ -12,6 +12,7 @@ import { Calendar } from 'primereact/calendar'
 import { locateSlots, stopLocatingSlots } from "../../utilities/slotLocator"
 import { callPublicApis } from "../../utilities/http"
 import { formatDate } from '../../utilities/dateConverter'
+import ReactGA from 'react-ga'
 
 export default function SearchDialog({ statesList, setDataSet, displaySearchDialog, setDisplaySearchDialog }) {
     let searchView;
@@ -62,6 +63,11 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
             setRecurringSearchTriggered(true);
         }
         locateSlots({selectedSearch, pin, selectedDate, autoRefresh, showFutureDates, setDataSet})
+        ReactGA.event({
+            category: 'SEARCH DIALOG',
+            action: 'Search by Pin',
+            label: 'SEARCH_BUTTON_PRESS '
+        })
     };
 
     const searchSlotsByDistrict = () => {
@@ -76,6 +82,11 @@ export default function SearchDialog({ statesList, setDataSet, displaySearchDial
             setRecurringSearchTriggered(true);
         }
         locateSlots({selectedSearch, selectedDistrict, selectedDate, autoRefresh, showFutureDates, setDataSet})
+        ReactGA.event({
+            category: 'SEARCH_DIALOG',
+            action: 'Search by District',
+            label: 'SEARCH_BUTTON_PRESS '
+        })
     };
 
     const handleStateSelection = (selectedStateId) => {

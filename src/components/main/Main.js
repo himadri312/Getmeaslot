@@ -4,6 +4,7 @@ import { Card } from 'primereact/card'
 import { callPublicApis } from '../../utilities/http'
 import SlotTable from './SlotDataTable'
 import { Toast } from 'primereact/toast'
+import ReactGA from 'react-ga'
 
 export default function Main() {
     const toastRef = useRef(null);
@@ -22,6 +23,8 @@ export default function Main() {
     };
 
     useEffect( () => {
+        ReactGA.initialize(process.env.REACT_APP_GATC)
+        ReactGA.pageview("Main")
         callPublicApis({
             url: 'https://cdn-api.co-vin.in/api/v2/admin/location/states'
         }).then(response => response.json())
