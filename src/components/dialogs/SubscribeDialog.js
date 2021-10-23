@@ -68,7 +68,8 @@ export default function Subscribe({ displaySubscribeDialog, setDisplaySubscribeD
                 <Card className="disclaimer">
                     <p className="underDevelopment">
                         <h1>Our apologies!</h1>
-                        <h4>This functionality is still under development</h4>
+                        <h4>We have stopped slots availability notification service, as vaccines are readily available in most of the districts.</h4>
+                        <h4>You can still use the search option.</h4>
                     </p>
                     <p>Users can subscribe to multiple pincodes</p>
                     <p>User will get an email notification as soon as slots for a subscribed pincode is available</p>
