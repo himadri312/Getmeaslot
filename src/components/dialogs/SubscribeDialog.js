@@ -66,7 +66,7 @@ export default function Subscribe({ displaySubscribeDialog, setDisplaySubscribeD
                 </div>
                 <Divider className="p-mt-2"/>
                 <Card className="disclaimer">
-                    <p className="underDevelopment">
+                    <p className="stoppedService">
                         <h1>Our apologies!</h1>
                         <h4>We have stopped slots availability notification service, as vaccines are readily available in most of the districts.</h4>
                         <h4>You can still use the search option.</h4>
